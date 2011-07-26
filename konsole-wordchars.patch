@@ -1,0 +1,11 @@
+--- kdebase-4.2.1/konsole/src/TerminalDisplay.cpp~	2009-02-26 15:16:35.000000000 +0100
++++ kdebase-4.2.1/konsole/src/TerminalDisplay.cpp	2009-03-01 21:06:55.168263297 +0100
+@@ -304,7 +304,7 @@
+ ,_preserveLineBreaks(false)
+ ,_columnSelectionMode(false)
+ ,_scrollbarLocation(NoScrollBar)
+-,_wordCharacters(":@-./_~")
++,_wordCharacters(":@-./_~?=&%+#")
+ ,_bellMode(SystemBeepBell)
+ ,_blinking(false)
+ ,_hasBlinker(false)
