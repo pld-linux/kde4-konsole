@@ -9,13 +9,14 @@ Summary:	K Desktop Environment - KDE Terminal Emulator
 Summary(pl.UTF-8):	K Desktop Environment - Emulator terminala dla KDE
 Name:		kde4-konsole
 Version:	4.8.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
 # Source0-md5:	fa7dec61e2bbf120ddd5cff1d291e4b8
 Patch0:		konsole-wordchars.patch
 Patch1:		konsole-bug-188528.patch
+Patch2:		konsole-bug-280896.patch
 URL:		http://www.kde.org/
 BuildRequires:	kde4-kdebase-devel >= %{version}
 BuildRequires:	kde4-kdebase-workspace-devel >= %{version}
@@ -38,6 +39,7 @@ Emulator terminala dla KDE.
 %setup -q -n %{orgname}-%{version}
 %patch0 -p1
 %patch1 -p2
+%patch2 -p1
 
 %build
 install -d build

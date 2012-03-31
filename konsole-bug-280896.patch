@@ -1,0 +1,62 @@
+commit bf3e57e94b54c1c4337d7960e0fda0ef98156451
+Author: Kurt Hindenburg <kurt.hindenburg@gmail.com>
+Date:   Fri Mar 30 20:55:46 2012 -0400
+
+        A quick fix to get fonts to look OK w/ Qt4.8 and bidi off
+    
+        Hopefully a temp fix for this issue.  It would be better to find out
+        what happened with Qt4.8 font rendering.
+    
+        Thanks to people on bug report for research and info.
+    
+        CCBUG: 280896
+
+diff --git a/src/TerminalDisplay.cpp b/src/TerminalDisplay.cpp
+index 1076131..ac44da9 100644
+--- a/src/TerminalDisplay.cpp
++++ b/src/TerminalDisplay.cpp
+@@ -720,10 +720,18 @@ void TerminalDisplay::drawCharacters(QPainter& painter,
+         // Qt::LeftToRight for this widget
+         //
+         // This was discussed in: http://lists.kde.org/?t=120552223600002&r=1&w=2
+-        if (_bidiEnabled)
+-            painter.drawText(rect,0,text);
++        if (_bidiEnabled) {
++            painter.drawText(rect, 0, text);
++        }
+         else
+-            painter.drawText(rect,0,LTR_OVERRIDE_CHAR+text);
++        {
++            // See bug 280896 for more info
++#if QT_VERSION >= 0x040800
++            painter.drawText(rect, Qt::AlignBottom, LTR_OVERRIDE_CHAR + text);
++#else
++            painter.drawText(rect, 0, LTR_OVERRIDE_CHAR + text);
++#endif
++        }
+     }
+ }
+ 
+diff --git a/src/TerminalDisplay.h b/src/TerminalDisplay.h
+index 97b517e..c6f993e 100644
+--- a/src/TerminalDisplay.h
++++ b/src/TerminalDisplay.h
+@@ -398,7 +398,17 @@ public:
+      * Sets the status of the BiDi rendering inside the terminal display.
+      * Defaults to disabled.
+      */
+-    void setBidiEnabled(bool set) { _bidiEnabled=set; }
++    void setBidiEnabled(bool set) {
++        _bidiEnabled=set;
++        // See bug 280896 for more info
++#if QT_VERSION >= 0x040800
++        if (_bidiEnabled) {
++            setLineSpacing(0);
++        } else {
++            setLineSpacing(2);
++        }
++#endif
++    }
+     /**
+      * Returns the status of the BiDi rendering in this widget.
+      */
