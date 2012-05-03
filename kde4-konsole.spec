@@ -3,17 +3,17 @@
 #
 %define		_state		stable
 %define		orgname		konsole
-%define		qtver		4.8.0
+%define		qtver		4.8.1
 
 Summary:	K Desktop Environment - KDE Terminal Emulator
 Summary(pl.UTF-8):	K Desktop Environment - Emulator terminala dla KDE
 Name:		kde4-konsole
-Version:	4.8.2
-Release:	3
+Version:	4.8.3
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	c63b525e94a0e7e1753ea3d9dbff6970
+# Source0-md5:	980afa132c7c1b89a08ecc6c70a98ad5
 Patch0:		konsole-wordchars.patch
 Patch1:		konsole-bug-188528.patch
 URL:		http://www.kde.org/
