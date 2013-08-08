@@ -1,11 +1,11 @@
---- konsole-4.8.0/src/TerminalDisplay.cpp~	2011-12-02 22:31:44.000000000 +0100
-+++ konsole-4.8.0/src/TerminalDisplay.cpp	2012-01-19 09:39:24.832490670 +0100
-@@ -306,6 +306,6 @@ TerminalDisplay::TerminalDisplay(QWidget
+--- konsole-4.11.0/src/TerminalDisplay.cpp~	2013-07-10 00:49:37.000000000 +0200
++++ konsole-4.11.0/src/TerminalDisplay.cpp	2013-08-08 13:19:44.501329893 +0200
+@@ -317,7 +317,7 @@
      , _middleClickPasteMode(Enum::PasteFromX11Selection)
      , _scrollbarLocation(Enum::ScrollBarRight)
+     , _scrollFullPage(false)
 -    , _wordCharacters(":@-./_~")
 +    , _wordCharacters(":@-./_~?=&%+#")
      , _bellMode(Enum::NotifyBell)
      , _allowBlinkingText(true)
      , _allowBlinkingCursor(false)
-
