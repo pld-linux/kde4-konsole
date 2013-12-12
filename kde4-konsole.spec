@@ -4,6 +4,7 @@
 %define		_state		stable
 %define		orgname		konsole
 %define		qtver		4.8.3
+%define		kdeworkspacever	4.11.0
 
 Summary:	K Desktop Environment - KDE Terminal Emulator
 Summary(pl.UTF-8):	K Desktop Environment - Emulator terminala dla KDE
@@ -17,7 +18,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version
 Patch0:		konsole-wordchars.patch
 URL:		http://www.kde.org/
 BuildRequires:	kde4-kdebase-devel >= %{version}
-BuildRequires:	kde4-kdebase-workspace-devel >= %{version}
+BuildRequires:	kde4-kdebase-workspace-devel >= %{kdeworkspacever}
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 Requires:	fontpostinst
 Provides:	kde4-kdebase-common-konsole
