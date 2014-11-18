@@ -1,0 +1,58 @@
+From: Casian Andrei <skeletk13@gmail.com>
+Date: Mon, 21 Jul 2014 13:50:38 +0000
+Subject: Issue a warning when not matching a font exactly
+X-Git-Url: http://quickgit.kde.org/?p=konsole.git&a=commitdiff&h=e6fa0276a55cb915adb2e1c0e43879d8b8c14d65
+---
+Issue a warning when not matching a font exactly
+
+When setting a font for the terminal, if it is not found properly by the
+system, Qt attempts to use another font which is not an exact match. It
+happens that the other font is not fixed-pitch, so konsole ends up using
+an unsupported variable-pitch font for the terminal.
+
+Place a warning when an exact match for the desired font has not been
+found.
+---
+
+
+--- a/src/TerminalDisplay.cpp
++++ b/src/TerminalDisplay.cpp
+@@ -208,6 +208,10 @@
+     QFont font = f;
+ 
+     QFontMetrics metrics(font);
++
++    if (!QFontInfo(font).exactMatch()) {
++        kWarning() << "The font for use in the terminal has not been matched exactly. Perhaps it has not been found properly.";
++    }
+ 
+     if (!QFontInfo(font).fixedPitch()) {
+         kWarning() << "Using an unsupported variable-width font in the terminal.  This may produce display errors.";
+
+From: Feng Chao <chaofeng111@gmail.com>
+Date: Sun, 03 Aug 2014 13:18:52 +0000
+Subject: Fix Bug 318453 - Blinking cursor of "fullwidth" character are "halfwidth"
+X-Git-Url: http://quickgit.kde.org/?p=konsole.git&a=commitdiff&h=5fd1276b8d024a5a2670ff60753c9760a2ff7ca7
+---
+Fix Bug 318453 - Blinking cursor of "fullwidth" character are "halfwidth"
+
+Calculate the character width at current blinking cursor.
+
+BUG: 318453
+---
+
+
+--- a/src/TerminalDisplay.cpp
++++ b/src/TerminalDisplay.cpp
+@@ -1600,7 +1600,9 @@
+ 
+ void TerminalDisplay::updateCursor()
+ {
+-    QRect cursorRect = imageToWidget(QRect(cursorPosition(), QSize(1, 1)));
++    int cursorLocation = loc(cursorPosition().x(), cursorPosition().y());
++    int charWidth = konsole_wcwidth(_image[cursorLocation].character);
++    QRect cursorRect = imageToWidget(QRect(cursorPosition(), QSize(charWidth, 1)));
+     update(cursorRect);
+ }
+ 
+
